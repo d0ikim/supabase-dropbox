@@ -43,3 +43,16 @@ export async function searchFiles(search: string = '') {
 
   return data;
 }
+
+// 파일 삭제
+export async function deleteFile(fileName: string) {
+  const supabase = await createServerSupabaseClient();
+
+  const { data, error } = await supabase.storage
+    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
+    .remove([fileName]);
+
+  handleError(error);
+
+  return data;
+}
